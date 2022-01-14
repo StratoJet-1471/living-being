@@ -1,14 +1,14 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import {initArea} from './react-redux-store/slice.js';
+import {createArea} from './react-redux-store/slice.js';
 
 export default function AreaManager(props) {
     const dispatch = useDispatch();
 
     return (
         <div>
-            <button onClick={() => dispatch(initArea())}>Create init Area</button>
+            <button onClick={() => dispatch(createArea({difficultyLevel: "low"}))}>Create low difficulty Area</button>
         </div>
     );
 }

@@ -2,12 +2,12 @@ import { configureStore } from '@reduxjs/toolkit';
 import {worldStateReducer} from './slice.js';
 
 import {DEFAULTS} from "../defaults.js";
-import {createInitCellsDataArray} from "../utilities.js";
+import {createAreaCellsDataArray_Empty} from "../utilities.js";
 
 export default configureStore({
     reducer: worldStateReducer,    
     preloadedState: {
-      cells: createInitCellsDataArray(DEFAULTS.areaCellsNumber), 
+      cells: createAreaCellsDataArray_Empty(DEFAULTS.areaCellsNumber), 
     }
     
   })
