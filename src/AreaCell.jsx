@@ -19,9 +19,11 @@ export default function AreaCell(props) {
 
     const open = Boolean(anchorEl);
 //<Button onClick={handleClick}>Open popover</Button>
+
+    //props.cellData = {difficulty: value}
     return (
         <div className="area__cell" onClick={handlePopoverOpening}>
-            <div>{props.children}</div>
+            <div>{props.cellData.difficulty}</div>
             <div>                
                 <Popover
                 open={open}
@@ -32,7 +34,7 @@ export default function AreaCell(props) {
                 horizontal: 'left',
                 }}
                 sx={{width: "300px"}}>
-                    <AreaCellManager closingFunc={handlePopoverClosing}/>
+                    <AreaCellManager closingFunc={handlePopoverClosing} cellData={props.cellData}/>
                 </Popover>
             </div>
         </div>

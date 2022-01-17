@@ -1,10 +1,3 @@
-/*
-[class^="box-"] {
-    background-color: skyblue;
-    border: 1px solid blue;
-}
-*/
-
 .area {
     display: grid;
     width: 270px;
@@ -29,52 +22,67 @@
   flex-direction: row;
   justify-content: center;
   align-items: flex-start;
-  width: 150px;
-  height: 120px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  box-sizing: border-box;
   background-color: rgb(240, 230, 140);
   border: 1px solid rgb(189, 183, 107);
+
+  --title-container-height: 20px;
+  --form-height: 130px;
+  --form-width: 150px;
 }
 
-.area__cell-manager-body {
+.cell-manager__body {
+  display: flex;
+  flex-direction: column;
+  justify-content:flex-start;
+  align-items: center;
+
+  /*border: 1px solid black;*/
+}
+
+.cell-manager__title-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;  
+  box-sizing: border-box; 
+  height: var(--title-container-height);
+  width: var(--form-width); 
+}
+
+.cell-manager__title {
+  padding-left: 3px;
+  font-size: 18px;
+  color: brown;
+}
+
+.cell-manager__form {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  align-items: center;
-  height: 110px; 
-  box-sizing: border-box; 
-  border: 1px solid black;
+  align-items: center; 
+  box-sizing: border-box;  
+  height: var(--form-height); 
+  width: var(--form-width); 
+  margin: 0; /*Без этого вокруг формы появятся нежелательные отступы*/
+  /*border: 1px solid red;*/
 }
 
-.area__cell-manager-closing-icon-container {
+.cell-manager__input_text {
+  width: 90px; 
+  height: 25px;
+}
+
+.cell-manager__closing-icon-container {
   display: flex;
   flex-direction: column;
   justify-content: start;
-  height: 110px;
-  padding: 5px;
+  height: calc(var(--title-container-height) + var(--form-height));
   box-sizing: border-box;
-  border: 1px solid black;
+  /*border: 1px solid black;*/
 }
 
-.area__cell-manager-closing-icon {
+.cell-manager__closing-icon {
   width: 10px;
   height: 10px;
+  margin: 5px;
   cursor: pointer;
 }
-
-/*
-  .box-one {
-    grid-column: 1 / 3;
-    grid-row: 1;
-  }
-  .box-two {
-    grid-column: 3;
-    grid-row: 2;
-  }
-  .box-three {
-    grid-column: 4;
-    grid-row: 1 / 3;
-  }
-  */

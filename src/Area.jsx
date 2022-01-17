@@ -6,7 +6,7 @@ import "./css/style.css";
 
 export default function Area(props) {
     const cellInfoObjects = useSelector((state) => state.cells);
-    const cells = cellInfoObjects.map((item, index) => <AreaCell key={index}>{item}</AreaCell>);
+    const cells = cellInfoObjects.map((item, index) => <AreaCell key={index} cellData={item} />); //item={index: value, difficulty: value}
 
     return (
         <div className="area">{cells}</div>

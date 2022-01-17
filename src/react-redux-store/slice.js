@@ -1,24 +1,33 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import {DEFAULTS} from "../defaults.js";
-import {createAreaCellsDataArray_Empty,
-    createAreaCellsDataArray_LowDifficulty} from "../utilities.js";
+import {createAreaCellsData_Empty,
+    createAreaCellsData_LowDifficulty} from "../utilities.js";
 
 export const stateSlice = createSlice({
     name: "worldState",
     
     initialState: { 
-        cells: createAreaCellsDataArray_Empty(DEFAULTS.areaCellsNumber), 
+        cells: createAreaCellsData_Empty(DEFAULTS.areaCellsNumber), 
     },
 
     
     reducers: {
+/*
         createArea: (state, value) => {
             if(value.payload.difficultyLevel=="low") {
-                state.cells = createAreaCellsDataArray_LowDifficulty(DEFAULTS.areaCellsNumber);
+                createAreaCellsData_LowDifficulty(state.cells);
             }
-            else state.cells = createAreaCellsDataArray_Empty(DEFAULTS.areaCellsNumber);
         },
+*/
+
+        createArea: (state, value) => {
+            if(value.payload.difficultyLevel=="low") {
+                state.cells = createAreaCellsData_LowDifficulty(DEFAULTS.areaCellsNumber);
+            }
+            else state.cells = createAreaCellsData_Empty(DEFAULTS.areaCellsNumber);
+        },
+
     }
 });
 
