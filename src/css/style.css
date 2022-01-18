@@ -27,7 +27,7 @@
 
   --title-container-height: 20px;
   --form-height: 130px;
-  --form-width: 150px;
+  --form-width: 200px;
 }
 
 .cell-manager__body {
@@ -51,7 +51,7 @@
 .cell-manager__title {
   padding-left: 3px;
   font-size: 18px;
-  color: brown;
+  color: rgb(146, 141, 69);/*brown;*/
 }
 
 .cell-manager__form {
@@ -64,6 +64,22 @@
   width: var(--form-width); 
   margin: 0; /*Без этого вокруг формы появятся нежелательные отступы*/
   /*border: 1px solid red;*/
+}
+
+.cell-manager__form-title {
+  font-size: 19px; 
+  color: brown;
+}
+
+.cell-manager__input-block {
+  display: flex;
+  flex-direction: column;
+  align-items:flex-start; 
+}
+
+.cell-manager__input-description {
+  font-size: 18px;
+  color: rgb(25, 25, 112);
 }
 
 .cell-manager__input_text {

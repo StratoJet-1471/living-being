@@ -44,17 +44,19 @@ export default function AreaCellManager(props) {
         });
     };
 
-
     return (
         <div className="area__cell-manager">
             <div className="cell-manager__body">
                 <div className='cell-manager__title-container'>
-                    <span className='cell-manager__title'>Cell index: {formData.index}</span>
+                    <span className='cell-manager__title'>{formData.index}</span>
                 </div>
                 <form className="cell-manager__form" onSubmit={submitData}>                    
-                    <span>Set cell conditions:</span>
-                    <input type="text" className="cell-manager__input_text" value={formData.difficulty} onChange={handleChangeCellDifficulty}/>
-                    <input type="submit" value="Отправить" />
+                    <span className="cell-manager__form-title">Set cell conditions:</span>
+                    <div className="cell-manager__input-block">
+                        <span className="cell-manager__input-description">Difficulty: </span>
+                        <input type="text" className="cell-manager__input_text" value={formData.difficulty} onChange={handleChangeCellDifficulty}/>
+                    </div>
+                    <input type="submit" value="Submit" />
                 </form>
             </div>
             <div className="cell-manager__closing-icon-container">
