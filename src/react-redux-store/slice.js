@@ -13,20 +13,16 @@ export const stateSlice = createSlice({
 
     
     reducers: {
-/*
-        createArea: (state, value) => {
-            if(value.payload.difficultyLevel=="low") {
-                createAreaCellsData_LowDifficulty(state.cells);
-            }
-        },
-*/
-
         createArea: (state, value) => {
             if(value.payload.difficultyLevel=="low") {
                 state.cells = createAreaCellsData_LowDifficulty(DEFAULTS.areaCellsNumber);
             }
             else state.cells = createAreaCellsData_Empty(DEFAULTS.areaCellsNumber);
         },
+
+        setCellData: (state, value) => {
+            state.cells[Number(value.payload.index)].difficulty = Number(value.payload.difficulty);
+        }
 
     }
 });
@@ -44,5 +40,5 @@ and included in the result's actions field using the same function name.
 The generated reducer function is suitable for passing to the Redux combineReducers function as a "slice reducer".
 */
 
-export const {createArea} = stateSlice.actions;
+export const {createArea, setCellData} = stateSlice.actions;
 export const worldStateReducer = stateSlice.reducer;

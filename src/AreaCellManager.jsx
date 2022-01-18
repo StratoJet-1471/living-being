@@ -1,14 +1,17 @@
 import React, {useState, useEffect} from 'react';
 import { useDispatch } from 'react-redux';
-//Задействуй useEffect, чтобы из пропсов передать значение Трудности в форму.
+
+import {setCellData} from './react-redux-store/slice.js';
 
 import "./css/style.css";
 
 export default function AreaCellManager(props) {
     const [formData, setFormData] = useState({index: null, difficulty: 0});
+    const dispatch = useDispatch();
+
     useEffect(() => {
         //После рендеринга синхронизируем состояние и пропсы:
-        if(props.cellData.difficulty != formData.difficulty) {
+        if(formData.index === null) {
             setFormData({
                 index: Number(props.cellData.index),
                 difficulty: Number(props.cellData.difficulty)
@@ -23,20 +26,25 @@ export default function AreaCellManager(props) {
 
     const submitData = (event) => {
         event.preventDefault();
-        //console.log(formData.difficulty);
+        dispatch(setCellData({
+            index: formData.index, 
+            difficulty: formData.difficulty
+        }));
     };
 
-/*
+
     const handleChangeCellDifficulty = (event) => {
+        const diffValidationRegExp = /[^0-9\.]/g;
+        let diff = event.target.value;
+
+        if(diff.match(diffValidationRegExp)) diff = diff.replace(diffValidationRegExp, '');
         setFormData({
-            index: Number(props.cellData.index),
-            difficulty: Number(event.target.value)
+            index: formData.index,
+            difficulty: diff
         });
     };
-*/
 
-//cell-manager__input_text -> onChange={handleChangeCellDifficulty}
-//cell-manager__input_text -> defaultValue={formData.difficulty}
+
     return (
         <div className="area__cell-manager">
             <div className="cell-manager__body">
@@ -45,7 +53,7 @@ export default function AreaCellManager(props) {
                 </div>
                 <form className="cell-manager__form" onSubmit={submitData}>                    
                     <span>Set cell conditions:</span>
-                    <input type="text" className="cell-manager__input_text" defaultValue={props.cellData.difficulty} />
+                    <input type="text" className="cell-manager__input_text" value={formData.difficulty} onChange={handleChangeCellDifficulty}/>
                     <input type="submit" value="Отправить" />
                 </form>
             </div>

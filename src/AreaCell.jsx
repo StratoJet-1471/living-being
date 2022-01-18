@@ -20,7 +20,7 @@ export default function AreaCell(props) {
     const open = Boolean(anchorEl);
 //<Button onClick={handleClick}>Open popover</Button>
 
-    //props.cellData = {difficulty: value}
+    //props.cellData = {index:value, difficulty: value}
     return (
         <div className="area__cell" onClick={handlePopoverOpening}>
             <div>{props.cellData.difficulty}</div>
