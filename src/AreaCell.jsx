@@ -23,7 +23,8 @@ export default function AreaCell(props) {
     //props.cellData = {index:value, difficulty: value}
     return (
         <div className="area__cell" onClick={handlePopoverOpening}>
-            <div>{props.cellData.difficulty}</div>
+            <span className='area__cell-number'>{Number(props.cellData.index)+1}</span>
+            <span className='area__cell-difficulty'>Diff: {props.cellData.difficulty}</span>
             <div>                
                 <Popover
                 open={open}

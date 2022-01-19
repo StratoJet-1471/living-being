@@ -47,8 +47,8 @@ export default function AreaCellManager(props) {
     return (
         <div className="area__cell-manager">
             <div className="cell-manager__body">
-                <div className='cell-manager__title-container'>
-                    <span className='cell-manager__title'>{formData.index}</span>
+                <div className='cell-manager__cell-number-container'>
+                    <span className='cell-manager__cell-number'>{formData.index+1}</span>
                 </div>
                 <form className="cell-manager__form" onSubmit={submitData}>                    
                     <span className="cell-manager__form-title">Set cell conditions:</span>
