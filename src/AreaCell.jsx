@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import Popover from '@mui/material/Popover';
-import Button from '@material-ui/core/Button';
 
 import AreaCellManager from './AreaCellManager.jsx';
 
@@ -18,7 +17,6 @@ export default function AreaCell(props) {
     };
 
     const open = Boolean(anchorEl);
-//<Button onClick={handleClick}>Open popover</Button>
 
     //props.cellData = {index:value, difficulty: value}
     return (

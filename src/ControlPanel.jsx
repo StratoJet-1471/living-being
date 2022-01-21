@@ -3,6 +3,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 
 import AreaManager from "./AreaManager.jsx";
+import EntityManager from "./EntityManager.jsx";
 
 //Источник кода с табами - https://mui.com/components/tabs/#BasicTabs.js
 
@@ -46,7 +47,7 @@ export default function ControlPanel(props) {
                 <AreaManager/>
             </TabPanel>
             <TabPanel value={value} index={1}>
-                Entity Manager
+                <EntityManager/>
             </TabPanel>
         </>
     );    

@@ -1,16 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import {DEFAULTS} from "../defaults.js";
-import {createAreaCellsData_Empty,
+import {createInitialWorldState,
+    createAreaCellsData_Empty,
     createAreaCellsData_LowDifficulty} from "../utilities.js";
 
 export const stateSlice = createSlice({
     name: "worldState",
-    
-    initialState: { 
-        cells: createAreaCellsData_Empty(DEFAULTS.areaCellsNumber), 
-    },
-
+    initialState: createInitialWorldState(DEFAULTS.areaCellsNumber),
     
     reducers: {
         createArea: (state, value) => {
@@ -22,7 +19,10 @@ export const stateSlice = createSlice({
 
         setCellData: (state, value) => {
             state.cells[Number(value.payload.index)].difficulty = Number(value.payload.difficulty);
-        }
+        },
+
+        //entityPulseBeat: (state, value) => { state.entityPulseCount = Number(value.payload.entityPulseCount); }
+        entityPulseBeat: (state) => { state.entityPulseCount++; }
 
     }
 });
@@ -40,5 +40,5 @@ and included in the result's actions field using the same function name.
 The generated reducer function is suitable for passing to the Redux combineReducers function as a "slice reducer".
 */
 
-export const {createArea, setCellData} = stateSlice.actions;
+export const {createArea, setCellData, entityPulseBeat} = stateSlice.actions;
 export const worldStateReducer = stateSlice.reducer;
