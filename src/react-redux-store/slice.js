@@ -7,21 +7,20 @@ import {createInitialWorldState,
 
 export const stateSlice = createSlice({
     name: "worldState",
-    initialState: createInitialWorldState(DEFAULTS.areaCellsNumber),
+    initialState: createInitialWorldState(DEFAULTS.areaDimensions),
     
     reducers: {
         createArea: (state, value) => {
             if(value.payload.difficultyLevel=="low") {
-                state.cells = createAreaCellsData_LowDifficulty(DEFAULTS.areaCellsNumber);
+                state.cells = createAreaCellsData_LowDifficulty(DEFAULTS.areaDimensions);
             }
-            else state.cells = createAreaCellsData_Empty(DEFAULTS.areaCellsNumber);
+            else state.cells = createAreaCellsData_Empty(DEFAULTS.areaDimensions);
         },
 
         setCellData: (state, value) => {
             state.cells[Number(value.payload.index)].difficulty = Number(value.payload.difficulty);
         },
 
-        //entityPulseBeat: (state, value) => { state.entityPulseCount = Number(value.payload.entityPulseCount); }
         entityPulseBeat: (state) => { state.entityPulseCount++; }
 
     }

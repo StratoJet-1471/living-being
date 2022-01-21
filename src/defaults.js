@@ -1,3 +1,3 @@
 export const DEFAULTS = {
-    areaCellsNumber: 9
+    areaDimensions: {x: 3, y: 3}
 };
