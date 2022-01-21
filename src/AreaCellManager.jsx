@@ -30,6 +30,7 @@ export default function AreaCellManager(props) {
             index: formData.index, 
             difficulty: formData.difficulty
         }));
+        props.closingFunc();
     };
 
 

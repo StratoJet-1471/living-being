@@ -5,14 +5,14 @@ import store from './react-redux-store/store.js';
 
 //import Being from "./Being.jsx";
 import Area from "./Area.jsx";
-import AreaManager from "./AreaManager.jsx";
+import ControlPanel from "./ControlPanel.jsx";
 
 export default function App(props) {    
     return (
         <Provider store={store}>
             <div>
                 <Area/>
-                <AreaManager/>
+                <ControlPanel/>
             </div>
         </Provider>
     );

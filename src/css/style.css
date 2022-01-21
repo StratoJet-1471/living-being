@@ -119,3 +119,26 @@ html {
   margin: 5px;
   cursor: pointer;
 }
+
+.area-manager {
+  display: flex;
+  flex-direction: column;
+  align-self: start;
+  margin-top: 5px;
+
+  box-sizing: border-box;
+}
+
+.area-manager__title {
+  font-size: 1.1rem; 
+  font-weight: bold;
+  color: black; 
+  
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+.area-manager__button {
+  width: 350px;
+  font-size: 1rem;
+}

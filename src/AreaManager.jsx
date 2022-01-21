@@ -7,8 +7,9 @@ export default function AreaManager(props) {
     const dispatch = useDispatch();
 
     return (
-        <div>
-            <button onClick={() => dispatch(createArea({difficultyLevel: "low"}))}>Create low difficulty Area</button>
+        <div className='area-manager'>
+            <span className='area-manager__title'>Area Manager:</span>
+            <button className='area-manager__button' onClick={() => dispatch(createArea({difficultyLevel: "low"}))}>Create low difficulty Area</button>
         </div>
     );
 }
