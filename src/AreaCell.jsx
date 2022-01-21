@@ -18,10 +18,10 @@ export default function AreaCell(props) {
 
     const open = Boolean(anchorEl);
 
-    //props.cellData = {index:value, difficulty: value}
+    //props.cellData = {x:value, y:value, difficulty: value}
     return (
         <div className="area__cell" onClick={handlePopoverOpening}>
-            <span className='area__cell-number'>{Number(props.cellData.index)+1}</span>
+            <span className='area__cell-number'>{"{" + props.cellData.x + ", " + props.cellData.y + "}"}</span>
             <span className='area__cell-difficulty'>Diff: {props.cellData.difficulty}</span>
             <div>                
                 <Popover

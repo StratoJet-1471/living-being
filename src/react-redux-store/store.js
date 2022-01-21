@@ -7,5 +7,5 @@ import {createInitialWorldState} from "../utilities.js";
 export default configureStore({
     reducer: worldStateReducer,    
 
-    preloadedState: createInitialWorldState(DEFAULTS.areaDimensions)
+    preloadedState: createInitialWorldState(DEFAULTS.areaDimensionsObj)
   })

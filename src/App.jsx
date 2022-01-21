@@ -11,7 +11,7 @@ export default function App(props) {
     return (
         <Provider store={store}>
             <div>
-                <Entity startAreaCellNumber={1}/>
+                <Entity/>
                 <Area/>
                 <ControlPanel/>
             </div>

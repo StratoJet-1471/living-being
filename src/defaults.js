@@ -1,3 +1,3 @@
 export const DEFAULTS = {
-    areaDimensions: {x: 3, y: 3}
+    areaDimensionsObj: {x: 3, y: 3}
 };

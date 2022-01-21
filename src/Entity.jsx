@@ -9,7 +9,6 @@ function makeLifeTact() {
 
 export default function Entity(props) {
     const [timeTact, setTimeTact] = useState(false); 
-    const [currentCellNumber, setCurrentCellNumber] = useState(props.startAreaCellNumber);   
     const dispatch = useDispatch();
 
     useEffect(() => {

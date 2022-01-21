@@ -6,14 +6,15 @@ import {setCellData} from './react-redux-store/slice.js';
 import "./css/style.css";
 
 export default function AreaCellManager(props) {
-    const [formData, setFormData] = useState({index: null, difficulty: 0});
+    const [formData, setFormData] = useState({x: null, y: null, difficulty: 0});
     const dispatch = useDispatch();
 
     useEffect(() => {
         //После рендеринга синхронизируем состояние и пропсы:
-        if(formData.index === null) {
+        if(formData.x === null) { //Достаточно проверить одну координату
             setFormData({
-                index: Number(props.cellData.index),
+                x: Number(props.cellData.x),
+                y: Number(props.cellData.y),
                 difficulty: Number(props.cellData.difficulty)
             });
         }
@@ -27,7 +28,8 @@ export default function AreaCellManager(props) {
     const submitData = (event) => {
         event.preventDefault();
         dispatch(setCellData({
-            index: formData.index, 
+            x: formData.x, 
+            y: formData.y, 
             difficulty: formData.difficulty
         }));
         props.closingFunc();
@@ -40,7 +42,8 @@ export default function AreaCellManager(props) {
 
         if(diff.match(diffValidationRegExp)) diff = diff.replace(diffValidationRegExp, '');
         setFormData({
-            index: formData.index,
+            x: formData.x, 
+            y: formData.y, 
             difficulty: diff
         });
     };
@@ -49,7 +52,7 @@ export default function AreaCellManager(props) {
         <div className="area__cell-manager">
             <div className="cell-manager__body">
                 <div className='cell-manager__cell-number-container'>
-                    <span className='cell-manager__cell-number'>{formData.index+1}</span>
+                    <span className='cell-manager__cell-number'>{"{" + formData.x + ", " + formData.y + "}"}</span>
                 </div>
                 <form className="cell-manager__form" onSubmit={submitData}>                    
                     <span className="cell-manager__form-title">Set cell conditions:</span>
