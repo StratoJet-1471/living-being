@@ -15,6 +15,7 @@ html {
 }
 
 .area__cell {
+  position: relative;
   display: flex;
   flex-direction: column;  
   background-color: rgb(135, 206, 235);
@@ -23,7 +24,28 @@ html {
   cursor: pointer;
 }
 
-.area__cell-number {
+.area__cell-entity-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(117, 211, 248);/*rgb(36, 166, 218);*/
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.area__cell-controls-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;  
+}
+
+.area__cell-coords {
   color: rgb(74, 153, 184);
   font-size: 0.8rem;
 }

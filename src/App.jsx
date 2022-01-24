@@ -7,12 +7,12 @@ import Entity from "./Entity.jsx";
 import Area from "./Area.jsx";
 import ControlPanel from "./ControlPanel.jsx";
 
-export default function App(props) {    
+export default function App(props) {        
     return (
         <Provider store={store}>
             <div>
                 <Entity/>
-                <Area/>
+                <Area entityStartPos={{x:3, y:1}}/>
                 <ControlPanel/>
             </div>
         </Provider>

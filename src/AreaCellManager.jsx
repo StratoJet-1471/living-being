@@ -5,6 +5,8 @@ import {setCellData} from './react-redux-store/slice.js';
 
 import "./css/style.css";
 
+import {DEFAULTS} from "./defaults.js";
+
 export default function AreaCellManager(props) {
     const [formData, setFormData] = useState({x: null, y: null, difficulty: 0});
     const dispatch = useDispatch();
@@ -64,7 +66,7 @@ export default function AreaCellManager(props) {
                 </form>
             </div>
             <div className="cell-manager__closing-icon-container">
-                <img className="cell-manager__closing-icon" src="./design_elements/Icon-cross.png" alt="Close" onClick={closeManager}/>
+                <img className="cell-manager__closing-icon" src={DEFAULTS.designElementsPath + "Icon-cross.png"} alt="Close" onClick={closeManager}/>
             </div>
         </div>);
 }

@@ -1,7 +1,9 @@
+
 export function createInitialWorldState(dimensions) {
     return {
         cells: createAreaCellsData_Empty(dimensions), 
-        entityPulseCount: 0
+        entityPulseCount: 0,
+        entityPosition: null, //Делаем так, поскольку значение стартовой позиции Существа должно присваиваться внутри объекта Мира <Area/> - ему могут переданы пропсы с указанием этой позиции.
     };
 }
 

@@ -21,7 +21,12 @@ export const stateSlice = createSlice({
             ((state.cells[Number(value.payload.y)-1])[Number(value.payload.x)-1]).difficulty = Number(value.payload.difficulty);
         },
 
-        entityPulseBeat: (state) => { state.entityPulseCount++; }
+        entityPulseBeat: (state) => { state.entityPulseCount++; },
+
+        //"force" - чтобы показать, что эта установка позиции не происходит по воле Существа (для изменения позиции по его воле есть другой actionCreator - changeEntityPosition()), а вызвана кодом более высокого уровня (в частности, <Area/>).
+        forceSetEntityPosition: (state, value) => { 
+            state.entityPosition = value.payload;
+        }
 
     }
 });
@@ -39,5 +44,5 @@ and included in the result's actions field using the same function name.
 The generated reducer function is suitable for passing to the Redux combineReducers function as a "slice reducer".
 */
 
-export const {createArea, setCellData, entityPulseBeat} = stateSlice.actions;
+export const {createArea, setCellData, entityPulseBeat, forceSetEntityPosition} = stateSlice.actions;
 export const worldStateReducer = stateSlice.reducer;
