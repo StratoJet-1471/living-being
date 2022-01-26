@@ -24,6 +24,8 @@ export const stateSlice = createSlice({
         setEntityInternalState: (state, value) => {
             if(Number.isInteger(value.payload.pulseCount)) state.entityInternalState.pulseCount = value.payload.pulseCount;
 
+            if(value.payload.movingDirection) state.entityInternalState.movingDirection = value.payload.movingDirection;
+
             if(value.payload.neighborCellsInfo) state.entityInternalState.neighborCellsInfo = value.payload.neighborCellsInfo;
         },
 

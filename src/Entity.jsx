@@ -3,10 +3,6 @@ import { useDispatch } from 'react-redux';
 
 import {setEntityInternalState} from './react-redux-store/slice.js';
 
-function processLifeTact(...callbacks) {
-    callbacks.forEach((callback) => callback());
-}
-
 function setCoordOffsetsForDirection(direction) {
     if(direction == "north") return {dX: 0, dY: -1};
     else if(direction == "northEast") return {dX: 1, dY: -1};
@@ -28,6 +24,18 @@ function createNeighborCellsInfo_Empty(directions) {
     return info;
 }
 
+
+function chooseMovingDirection(neighborCellsInfo, directions) {
+    let chosenDirection = null;
+    while(chosenDirection===null) {
+        let index = Math.floor(directions.length*Math.random());
+        let direction = directions[index];
+        if(neighborCellsInfo[direction]) chosenDirection = direction;
+    }
+
+    return chosenDirection;
+}
+
 export default function Entity(props) {  
 /*
     Реализуем пока самый примитивный вариант: Существо не может составлять собственную карту Мира и даже запоминать пройденный путь. Всё, что оно хранит в памяти - это инфу о текущих соседних клетках. Соседние клетки отличаются друг от друга по {dX, dY}. Если значением св-ва data является null, значит, эти {dX, dY} ведут за пределы Мира. При перемещении Существа на новую клетку вся инфа о соседних клетках обновляется.
@@ -35,10 +43,12 @@ export default function Entity(props) {
 
     const neighborCellsDirections = ["north", "northEast", "east", "southEast", "south", "southWest", "west", "northWest"];
     const neighborCellsScanner = props.connectorWithWorld.getNeighborCellsData;
+    const move = props.connectorWithWorld.move;
 
     const [fullInternalState, setFullInternalState] = useState({
         pulseCount: 0,
         shouldScanNeighborCells: true,
+        movingDirection: null, //null - значит, Существо в данной итерации не хочет никуда двигаться.
         neighborCellsInfo: createNeighborCellsInfo_Empty(neighborCellsDirections)
     });
 
@@ -49,36 +59,44 @@ export default function Entity(props) {
     //const position = useSelector((state) => state.entityPosition); //Существо не должно иметь доступ к своей позиции в координатах Мира. У него м.б. представление о своей позиции только в рамках той части Мира, которую оно разведало.
     const dispatch = useDispatch();
 
-    let pulseCount = fullInternalState.pulseCount;
-    let shouldScanNeighborCells = fullInternalState.shouldScanNeighborCells;
-    let neighborCellsInfo = fullInternalState.neighborCellsInfo;
 
     useEffect(() => {
         setTimeout(() => {
-            let updatedNeighborCellsInfo = null;
-            processLifeTact(() => {
-                pulseCount++; //Это делается обязательно.
-                //Здесь м.б. алгоритмы, изменяющие shouldScanNeighborCells.
-
-
-                if(shouldScanNeighborCells)
-                    updatedNeighborCellsInfo = neighborCellsScanner(neighborCellsDirections, setCoordOffsetsForDirection);
-            });
-
             let newFullInternalState = {};
+            let pulseCount = fullInternalState.pulseCount;
+            let shouldScanNeighborCells = fullInternalState.shouldScanNeighborCells;
+            //let neighborCellsInfo = fullInternalState.neighborCellsInfo;
+
+            //================
+            //Итерация жизни Существа, результатом которой является его новое состояние. 
+            pulseCount++; //Это делается обязательно.
+
+            //Здесь м.б. алгоритмы, изменяющие shouldScanNeighborCells.
+
             newFullInternalState.pulseCount = pulseCount;
             newFullInternalState.shouldScanNeighborCells = shouldScanNeighborCells;
-            if(updatedNeighborCellsInfo) newFullInternalState.neighborCellsInfo = updatedNeighborCellsInfo;
+
+            if(shouldScanNeighborCells) 
+                newFullInternalState.neighborCellsInfo = neighborCellsScanner(neighborCellsDirections, setCoordOffsetsForDirection);
             else newFullInternalState.neighborCellsInfo = fullInternalState.neighborCellsInfo;
 
-            setFullInternalState(newFullInternalState);
+            newFullInternalState.movingDirection = chooseMovingDirection(newFullInternalState.neighborCellsInfo, neighborCellsDirections);
+            //================
 
             dispatch(setEntityInternalState({
                 pulseCount,
-                //neighborCellsInfo: updatedNeighborCellsInfo,
+                //neighborCellsInfo: newFullInternalState.neighborCellsInfo,
+                movingDirection: newFullInternalState.movingDirection,
             }));
+
+            if(newFullInternalState.movingDirection) 
+                move(newFullInternalState.movingDirection, setCoordOffsetsForDirection);
+
+
+            setFullInternalState(newFullInternalState);
         }, 1000);
-    });
+    }, [fullInternalState.pulseCount]);
+    /*Вызов этого эффекта будет происходить только при изменении fullInternalState.pulseCount - т.е., только тогда, когда рендеринг вызван изменением внутреннего состояния Существа (т.к. не бывает изменений этого состояния без изменения fullInternalState.pulseCount, а извне этот параметр изменить невозможно). Это сделано как предохранитель от вызова эффекта при рендеринге, вызванном внешними причинами (изменением пропсов - они меняются всякий раз при рендеринге <Area />, поскольку меняется передаваемый в пропсах объект connectorWithWorld). В отсутствие такого предохранителя начинают неконтролируемо размножаться вызовы setTimeout().*/
 
     return null;
 }

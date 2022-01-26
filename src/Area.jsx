@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import Entity from "./Entity.jsx";
@@ -42,9 +42,21 @@ export default function Area(props) {
         return data;
     };
 
+    const moveEntity = (direction, coordOffsetsForDirectionCreator) => {
+        let newEntityPosition = {};
+        const {dX, dY} = coordOffsetsForDirectionCreator(direction);
+        if(Number.isInteger(dX) && Number.isInteger(dY) && isValueBetween((entityPosition.x + dX), 1, DEFAULTS.areaDimensionsObj.x) && 
+        isValueBetween((entityPosition.y + dY), 1, DEFAULTS.areaDimensionsObj.y)) {
+            newEntityPosition.x = entityPosition.x + dX;
+            newEntityPosition.y = entityPosition.y + dY;
+            dispatch(forceSetEntityPosition(newEntityPosition));
+        }
+    };
+
 
     const entityConnectorWithWorld = {
-        getNeighborCellsData: getEntityNeighborCellsData
+        getNeighborCellsData: getEntityNeighborCellsData,
+        move: moveEntity
     };
 
     let cellsCount = 0;
@@ -55,7 +67,8 @@ export default function Area(props) {
         });
     });
 
-    dispatch(forceSetEntityPosition(entityStartPos));
+    //Думаю, от этого нужно избавиться - без особой нужды всё усложняет.
+    if(entityPosition===null) dispatch(forceSetEntityPosition(entityStartPos));
 
     //Логично, чтобы Существо находилось внутри Мира. Поэтому размещаем его компонент <Entity/> здесь, внутри <Area>. 
     return (

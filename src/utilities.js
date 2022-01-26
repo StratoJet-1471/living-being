@@ -4,6 +4,7 @@ export function createInitialWorldState(dimensions) {
         cells: createAreaCellsData_Empty(dimensions), 
         entityInternalState: {
             pulseCount: 0,
+            movingDirection: null,
             neighborCellsInfo: null,
         },
         entityPosition: null, //Присваиваем null, поскольку значение стартовой позиции Существа должно определяться внутри объекта Мира <Area/>.  И уже оттуда оно, с помощью диспетчеризации соответствующего события (forceSetEntityPosition()), сообщается в хранилище.
