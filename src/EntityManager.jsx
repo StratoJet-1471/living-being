@@ -1,8 +1,8 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-export default function Area(props) {
-    const entityPulseCount = useSelector((state) => state.entityPulseCount);
+export default function EntityManager(props) {
+    const entityPulseCount = useSelector((state) => state.entityInternalState.pulseCount);
 
     return (
         <span>PULSE COUNT: {entityPulseCount}</span>
