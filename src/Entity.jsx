@@ -25,15 +25,50 @@ function createNeighborCellsInfo_Empty(directions) {
 }
 
 
-function chooseMovingDirection(neighborCellsInfo, directions) {
+function checkCellForComfort(cellData, comfortConditions) {//Выделяем это в отдельную ф-ю, т.к. в перскпективе будут сравниватьс более одного параметра.
+    if(cellData.difficulty <= comfortConditions.maxDifficulty) return true;
+    return false;
+}
+
+function chooseRandomMovingDirection(neighborCellsInfo, directions) {
     let chosenDirection = null;
     while(chosenDirection===null) {
         let index = Math.floor(directions.length*Math.random());
         let direction = directions[index];
         if(neighborCellsInfo[direction]) chosenDirection = direction;
     }
-
     return chosenDirection;
+}
+
+function chooseMovingDirection({currentCellData, comfortConditions, neighborCellsInfo, directions}) {
+    if(checkCellForComfort(currentCellData, comfortConditions)) return null;
+    else {//neighborCellsInfo имеет вид типа { "north": { difficulty: 1}, "east": null, ...}
+        let minDiff; 
+        let directionOfMinDiff = null;
+        for(let direction in neighborCellsInfo) {
+            if(neighborCellsInfo[direction]!==null) {
+                if(minDiff===undefined) {
+                    minDiff = neighborCellsInfo[direction].difficulty;
+                    directionOfMinDiff = direction;
+                }
+                else {
+                    //В ПЕРСПЕКТИВЕ это тоже придётся вынести в отдельную ф-ю, наверное, т.к. будут сравниваться на только difficulty.
+                    if(neighborCellsInfo[direction].difficulty <= minDiff) { //"<=", а не "<" - потому что для живого существа будет естественнее двигаться в том подходящем направлении, которое оно обнаружило позже.
+                        minDiff = neighborCellsInfo[direction].difficulty;
+                        directionOfMinDiff = direction;                        
+                    }
+                }
+            }
+        }
+
+        //return directionOfMinDiff; //Существо в любом случае двинется туда, где условия ближе к подходящим - даже если они превышают лимиты.
+        //МИНУС этого подхода - Существо постоянно находит какую-то пару более-менее нормальных соседствующих клеток и начинает бесконечно метаться между ними. Тут уже надо совершенствовать его интеллект, чтоб оно выходило из этой ловушки.
+        //ВООБЩЕ, если условия неподходящие, нужно вносить какой-то элемент случайности.
+
+
+        if(minDiff <= comfortConditions.maxDifficulty) return directionOfMinDiff;
+        else return chooseRandomMovingDirection(neighborCellsInfo, directions);
+    }
 }
 
 export default function Entity(props) {  
@@ -43,7 +78,10 @@ export default function Entity(props) {
 
     const neighborCellsDirections = ["north", "northEast", "east", "southEast", "south", "southWest", "west", "northWest"];
     const neighborCellsScanner = props.connectorWithWorld.getNeighborCellsData;
+    const currentCellScanner = props.connectorWithWorld.getCurrentCellData;
     const move = props.connectorWithWorld.move;
+    const comfortConditions = {maxDifficulty: 1};
+    const pulsePeriod = 1000;
 
     const [fullInternalState, setFullInternalState] = useState({
         pulseCount: 0,
@@ -80,7 +118,15 @@ export default function Entity(props) {
                 newFullInternalState.neighborCellsInfo = neighborCellsScanner(neighborCellsDirections, setCoordOffsetsForDirection);
             else newFullInternalState.neighborCellsInfo = fullInternalState.neighborCellsInfo;
 
-            newFullInternalState.movingDirection = chooseMovingDirection(newFullInternalState.neighborCellsInfo, neighborCellsDirections);
+            const currentCellData = currentCellScanner();
+            //console.log(currentCellData);
+ 
+            newFullInternalState.movingDirection = chooseMovingDirection({
+                currentCellData, 
+                comfortConditions, 
+                neighborCellsInfo: newFullInternalState.neighborCellsInfo, 
+                directions: neighborCellsDirections
+            });
             //================
 
             dispatch(setEntityInternalState({
@@ -94,7 +140,7 @@ export default function Entity(props) {
 
 
             setFullInternalState(newFullInternalState);
-        }, 1000);
+        }, pulsePeriod);
     }, [fullInternalState.pulseCount]);
     /*Вызов этого эффекта будет происходить только при изменении fullInternalState.pulseCount - т.е., только тогда, когда рендеринг вызван изменением внутреннего состояния Существа (т.к. не бывает изменений этого состояния без изменения fullInternalState.pulseCount, а извне этот параметр изменить невозможно). Это сделано как предохранитель от вызова эффекта при рендеринге, вызванном внешними причинами (изменением пропсов - они меняются всякий раз при рендеринге <Area />, поскольку меняется передаваемый в пропсах объект connectorWithWorld). В отсутствие такого предохранителя начинают неконтролируемо размножаться вызовы setTimeout().*/
 

@@ -28,7 +28,7 @@ export default function Area(props) {
     const cellInfoObjects = useSelector((state) => state.cells);
     const entityPosition = useSelector((state) => state.entityPosition);
     const dispatch = useDispatch();
-
+    
     const getEntityNeighborCellsData = (scanDirections, coordOffsetsForDirectionCreator) => {
         let data = {};
         for(const direction of scanDirections) {
@@ -40,6 +40,10 @@ export default function Area(props) {
         }
 
         return data;
+    };
+
+    const getCurrentEntityCellData = () => {
+        return { difficulty: ((cellInfoObjects[entityPosition.y-1])[entityPosition.x-1]).difficulty};
     };
 
     const moveEntity = (direction, coordOffsetsForDirectionCreator) => {
@@ -56,7 +60,8 @@ export default function Area(props) {
 
     const entityConnectorWithWorld = {
         getNeighborCellsData: getEntityNeighborCellsData,
-        move: moveEntity
+        move: moveEntity,
+        getCurrentCellData: getCurrentEntityCellData,
     };
 
     let cellsCount = 0;
