@@ -1,3 +1,4 @@
+import { DEFAULTS } from "./defaults";
 
 export function createInitialWorldState(dimensions) {
     return {
@@ -6,6 +7,10 @@ export function createInitialWorldState(dimensions) {
             pulseCount: 0,
             movingDirection: null,
             neighborCellsInfo: null,
+
+            comfortConditions: {
+                maxDifficulty: DEFAULTS.initialEntityMaxComfortDifficulty,
+            }
         },
         entityPosition: null, //Присваиваем null, поскольку значение стартовой позиции Существа должно определяться внутри объекта Мира <Area/>.  И уже оттуда оно, с помощью диспетчеризации соответствующего события (forceSetEntityPosition()), сообщается в хранилище.
     };

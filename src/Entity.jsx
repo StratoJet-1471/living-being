@@ -3,6 +3,8 @@ import { useDispatch } from 'react-redux';
 
 import {setEntityInternalState} from './react-redux-store/slice.js';
 
+import {DEFAULTS} from "./defaults.js";
+
 function setCoordOffsetsForDirection(direction) {
     if(direction == "north") return {dX: 0, dY: -1};
     else if(direction == "northEast") return {dX: 1, dY: -1};
@@ -80,7 +82,7 @@ export default function Entity(props) {
     const neighborCellsScanner = props.connectorWithWorld.getNeighborCellsData;
     const currentCellScanner = props.connectorWithWorld.getCurrentCellData;
     const move = props.connectorWithWorld.move;
-    const comfortConditions = {maxDifficulty: 1};
+    const comfortConditions = {maxDifficulty: DEFAULTS.initialEntityMaxComfortDifficulty};
     const pulsePeriod = 1000;
 
     const [fullInternalState, setFullInternalState] = useState({
@@ -131,6 +133,7 @@ export default function Entity(props) {
 
             dispatch(setEntityInternalState({
                 pulseCount,
+                comfortConditions,
                 //neighborCellsInfo: newFullInternalState.neighborCellsInfo,
                 movingDirection: newFullInternalState.movingDirection,
             }));

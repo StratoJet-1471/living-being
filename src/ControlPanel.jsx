@@ -4,6 +4,7 @@ import Tab from '@mui/material/Tab';
 
 import AreaManager from "./AreaManager.jsx";
 import EntityManager from "./EntityManager.jsx";
+import About from './About.jsx';
 
 //Источник кода с табами - https://mui.com/components/tabs/#BasicTabs.js
 
@@ -37,17 +38,22 @@ export default function ControlPanel(props) {
       setValue(newValue);
     };
 
+    //aria-label="basic tabs example"
     return (
         <>
-            <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+            <Tabs value={value} onChange={handleChange}>
               <Tab label="Area Manager" {...a11yProps(0)} />
               <Tab label="Entity Manager" {...a11yProps(1)} />
+              <Tab label="About" {...a11yProps(2)} />
             </Tabs>
             <TabPanel value={value} index={0}>
                 <AreaManager/>
             </TabPanel>
             <TabPanel value={value} index={1}>
                 <EntityManager/>
+            </TabPanel>
+            <TabPanel value={value} index={2}>
+                <About/>
             </TabPanel>
         </>
     );    

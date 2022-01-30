@@ -2,6 +2,17 @@ html {
   font-size: 18px; 
 }
 
+.game__container {
+  display:flex;
+  flex-direction: column;
+}
+
+.game__main-title {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 3.5rem;
+  color: rgb(34, 139, 34);
+}
+
 .area {
     display: grid;
     width: 270px;
