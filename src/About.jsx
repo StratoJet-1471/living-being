@@ -14,7 +14,7 @@ export default function About(props) {
                         Version 1.0.0
                     </Typography>
                     <Typography variant="body1" color="myColor.main">
-                        The Living Being (Entity) lives in a world made up of cells and looks for a cell with appropriate conditions. In this version, the only one cell condition is implemented - "difficulty". You can set the difficulty for each individual cell by clicking on it; you can also set random difficulty values ​​for all cells at once.
+                        The Living Being (Entity) lives in a world made up of cells and looks for a cell with suitable conditions. In this version, the only one cell condition is implemented - "difficulty". You can set the difficulty for each individual cell by clicking on it; you can also set random difficulty values ​​for all cells at once.
                     </Typography>
                 </Box>
             </Box>
