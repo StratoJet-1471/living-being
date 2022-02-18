@@ -1,10 +1,14 @@
 import React, {useState} from 'react';
+import AppBar from '@mui/material/AppBar';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import AreaManager from "./AreaManager.jsx";
 import EntityManager from "./EntityManager.jsx";
 import About from './About.jsx';
+
+import {DEFAULTS} from './defaults.js';
 
 //Источник кода с табами - https://mui.com/components/tabs/#BasicTabs.js
 
@@ -24,7 +28,7 @@ function TabPanel(props) {
     );
   }
 
-function a11yProps(index) {
+function allyProps(index) {
     return {
       id: `simple-tab-${index}`,
       'aria-controls': `simple-tabpanel-${index}`,
@@ -40,21 +44,27 @@ export default function ControlPanel(props) {
 
     //aria-label="basic tabs example"
     return (
-        <>
-            <Tabs value={value} onChange={handleChange}>
-              <Tab label="Area Manager" {...a11yProps(0)} />
-              <Tab label="Entity Manager" {...a11yProps(1)} />
-              <Tab label="About" {...a11yProps(2)} />
+      <div className="control-panel">
+        <ThemeProvider theme={createTheme(DEFAULTS.mui_controlPanelTabsTheme)}>
+          <AppBar position="static" color="navbar" sx={{width: '700px'}}>
+            <Tabs value={value} variant="fullWidth" indicatorColor="primary" textColor="secondary" onChange={handleChange}>
+              <Tab label="Area Manager" {...allyProps(0)} />
+              <Tab label="Entity Manager" {...allyProps(1)} />
+              <Tab label="About" {...allyProps(2)} />
             </Tabs>
-            <TabPanel value={value} index={0}>
-                <AreaManager/>
-            </TabPanel>
-            <TabPanel value={value} index={1}>
+          </AppBar>
+          <TabPanel value={value} index={0}>
+              <AreaManager/>
+          </TabPanel>
+          <TabPanel value={value} index={1}>
+              <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
                 <EntityManager/>
-            </TabPanel>
-            <TabPanel value={value} index={2}>
-                <About/>
-            </TabPanel>
-        </>
+              </div>
+          </TabPanel>
+          <TabPanel value={value} index={2}>
+              <About/>
+          </TabPanel>
+        </ThemeProvider>
+      </div>
     );    
 }

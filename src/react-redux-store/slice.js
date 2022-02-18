@@ -13,6 +13,7 @@ export const stateSlice = createSlice({
         createArea: (state, value) => {
             if(value.payload.difficultyLevel=="low") {
                 state.cells = createAreaCellsData_LowDifficulty(DEFAULTS.areaDimensionsObj);
+                //return Object.assign();
             }
             else state.cells = createAreaCellsData_Empty(DEFAULTS.areaDimensionsObj);
         },

@@ -1,10 +1,33 @@
 html {
   font-size: 18px; 
+
 }
 
-.game__container {
+.main-container {
   display:flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  background-color:rgb(154, 205, 50);
+
+  background: url('../design_elements/main_bg.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  min-height: 100vh;
+}
+
+.game {
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  /*border: 1px solid green;  */
+  background: rgb(240, 230, 140);
+
+  width: 730px;
+  min-height: inherit;  
 }
 
 .game__main-title {
@@ -174,4 +197,8 @@ html {
 .area-manager__button {
   width: 350px;
   font-size: 1rem;
+}
+
+.control-panel {
+  margin-top: 10px;
 }

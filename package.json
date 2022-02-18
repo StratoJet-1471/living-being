@@ -18,7 +18,8 @@
   "scripts": {
     "start": "node server.js",
     "build": "webpack --config webpack-config.js",
-    "serve": "serve -s public"
+    "serve": "serve -s public",
+    "watch": "webpack --watch --config webpack-config.js"
   },
   "author": "Aleksandr A. Kochnev, <rocketkite@yandex.ru>",
   "license": "ISC",

@@ -21,10 +21,12 @@ const WhiteTextTypography = withStyles({
 export default function App(props) {        
     return (
         <Provider store={store}>
-            <div className='game__container'>
-                <span className='game__main-title'>The Living Being</span>
-                <Area entityStartPos={{x:3, y:1}}/>
-                <ControlPanel/>
+            <div className='main-container'>                
+                <div className="game">
+                    <span className='game__main-title'>The Living Being</span>
+                    <Area entityStartPos={{x:3, y:1}}/>
+                    <ControlPanel/>
+                </div>
             </div>
         </Provider>
     );

@@ -3,7 +3,8 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = {
-    mode: "development",
+    mode: 'development',
+    //watch: true,
     entry: "./src/index.jsx",  //Файл, с которого начинается сборка ("точка входа"). Все остальные модули, участвующие в сборке, должны быть подключены к этому файлу через import.
     output: {
         filename: "bundle.js", //Это, собственно, файл-результат сборки. Если его имя не задать, вебпак назовёт его так же, как файл-"точку входа", в entry - только с расширением js.
