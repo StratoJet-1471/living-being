@@ -19,10 +19,10 @@ export default function AreaManager(props) {
             <Box sx={DEFAULTS.mui_TabPanelSx}>
                 <Box sx={{width: "500px", border: "1px solid black", p: "5px", backgroundColor: 'tabAreaManagerColor.main'}}>
                     <Button variant="contained" size="small" color="primary" sx={{m: '10px', }} onClick={() => dispatch(createArea({difficultyLevel: "low"}))}>
-                        Set random difficulty levels
+                        Set random difficulty values
                     </Button>
                     <Typography variant="body1" color="tabAreaManagerColor.darker">
-                        You also can set the difficulty level for each individual cell by clicking on it. 
+                        You also can set the difficulty value for each individual cell by clicking on it. 
                     </Typography>
                 </Box>
             </Box>

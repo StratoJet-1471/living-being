@@ -1,6 +1,6 @@
 
 # About the project as a whole:
-This is a simulation of an entity living in a world of cells. Each cell has some standard parameters. The Entity in the process of vital activity moves around the world in search of a cell with suitable values of these parameters. The user can set the parameter values of each cell.
+This is a simulation of an entity living in a world of cells. Each cell has some standard parameters. The Entity in the process of vital activity moves around the world in search of a cell with suitable values of these parameters. User can set the state of each cell.
 
 It is planned to actively develop the project, with introducing of new features and characteristics of the Entity and the World.
 
