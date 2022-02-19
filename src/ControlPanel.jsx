@@ -46,7 +46,7 @@ export default function ControlPanel(props) {
     return (
       <div className="control-panel">
         <ThemeProvider theme={createTheme(DEFAULTS.mui_controlPanelTabsTheme)}>
-          <AppBar position="static" color="navbar" sx={{width: '700px'}}>
+          <AppBar position="static" color="navbar" sx={{width: DEFAULTS.baseWidth + 'px'}}>
             <Tabs value={value} variant="fullWidth" indicatorColor="primary" textColor="secondary" onChange={handleChange}>
               <Tab label="Area Manager" {...allyProps(0)} />
               <Tab label="Entity Manager" {...allyProps(1)} />

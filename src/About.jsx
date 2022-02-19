@@ -9,7 +9,7 @@ export default function About(props) {
     return (
         <ThemeProvider theme={createTheme(DEFAULTS.mui_TabPanelTheme)}>
             <Box sx={DEFAULTS.mui_TabPanelSx}>
-                <Box sx={{width: "700px", border: "1px solid black", p: "5px", backgroundColor: 'tabColor.main'}}>
+                <Box sx={{width: (DEFAULTS.baseWidth-10)+"px", border: "1px solid black", p: "5px", backgroundColor: 'tabColor.main'}}>
                     <Typography variant="h5" color="tabColor.darker">
                         Version 1.0.0
                     </Typography>

@@ -6,6 +6,8 @@ export const DEFAULTS = {
 
     designElementsPath: "./design_elements/",
 
+    baseWidth: 700,
+
     mui_TabPanelSx: {
         mt: '10px',
     },
